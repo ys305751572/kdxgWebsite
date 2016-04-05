@@ -13,7 +13,7 @@
     <%@ include file="../inc/meta.jsp" %>
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>资讯添加</title>
+    <title>添加分类</title>
     <%@ include file="../inc/css.jsp" %>
     <link href="static/js/plugins/bootstrap-fileinput/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
     <script src="static/js/plugins/bootstrap-fileinput/js/fileinput.js" type="text/javascript"></script>
@@ -34,7 +34,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">查看资讯</h1>
+                <h1 class="page-header">添加分类</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -43,27 +43,18 @@
                 <div class="panel panel-default">
                     <!-- /.panel-heading -->
                     <div class="panel-body">
-                        <form id="productForm" method="post" enctype="multipart/form-data" action="admin/infows/save" class="form-horizontal" role="form">
+                        <form id="productForm" method="post" enctype="multipart/form-data" action="admin/classifyws/save" class="form-horizontal" role="form">
+                            <input type="hidden" id="id" name="id" value="${classifyws.id}">
                             <div class="form-group">
-                                <label  class="col-sm-2 control-label">资讯名称:</label>
+                                <label  class="col-sm-2 control-label">分类名称:</label>
                                 <div class="col-sm-3">
-                                    <h4>
-                                        ${ws.title}
-                                    </h4>
+                                    <input type="text" class="form-control" id="name" name="name" maxlength="20"
+                                           data-rule="required" value="${classifyws.name}" placeholder="请输入分类名称">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label  class="col-sm-2 control-label">资讯分类:</label>
-                                <div class="col-sm-3">
-                                    <h4>
-                                       ${ws.classifyWs.name}
-                                    </h4>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">咨询详情:</label>
-                                <div class="col-sm-6">
-                                    <script id="container" name="content" type="text/plain">${ws.content}</script>
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="button" id="submitProduct" class="btn btn-primary">提交</button>
                                 </div>
                             </div>
                         </form>
@@ -87,6 +78,19 @@
 <script type="text/javascript" src="ueditor1_4_3/ueditor.config.js"></script>
 <!-- 编辑器源码文件 -->
 <script type="text/javascript" src="ueditor1_4_3/ueditor.all.js"></script>
+<script>
+    $('.form_datetime').datetimepicker({
+        language:  'zh-CN',
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 1,
+        format:'yyyy-mm-dd hh:ii'
+    });
+</script>
 </body>
 
 <script type="text/javascript">
@@ -100,7 +104,7 @@
             init: function () {
 
                 if($("#id").val()!=""){
-                    $(".page-header").text("编辑商品")
+                    $(".page-header").text("编辑分类")
                 }
                 $("#submitProduct").click(function(){
                     product.fn.save();
@@ -217,6 +221,8 @@
                 });
             },
             save: function () {
+
+                console.log($("#datetest").val());
                 if(!$('#productForm').isValid()) {
                     return false;
                 };
@@ -242,20 +248,15 @@
                 if (result.status == "0") {
                     $bluemobi.notify(result.msg, "success");
 //                    $("#id").val(result.data.id)
-                    window.location.href = " ${contextPath}/admin/info/index";
+                    window.location.href = " ${contextPath}/admin/classifyws/index";
                 } else {
                     $bluemobi.notify(result.msg, "error");
                 }
             }
         }
     }
-
     $(document).ready(function () {
         product.fn.init();
-
-
     });
 </script>
-
-
 </html>

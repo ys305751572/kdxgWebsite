@@ -1,7 +1,7 @@
 package com.leoman.service.impl;
 
 import com.leoman.dao.InformationWsDao;
-import com.leoman.entity.Information;
+import com.leoman.entity.Activity;
 import com.leoman.entity.InformationWs;
 import com.leoman.service.InformationWsService;
 import org.apache.commons.lang.StringUtils;
@@ -29,7 +29,7 @@ public class InformationWsServiceImpl implements InformationWsService{
     private InformationWsDao dao;
 
     @Override
-    public Page<InformationWs> findPage(final String title,final Integer type,Integer status, int pagenum, int pagesize) {
+    public Page<InformationWs> findPage(final String title,final Integer type, int pagenum, int pagesize) {
 
         Specification<InformationWs> spec = new Specification<InformationWs>() {
             @Override
@@ -39,7 +39,7 @@ public class InformationWsServiceImpl implements InformationWsService{
                     list.add(criteriaBuilder.like(root.get("title").as(String.class),"%" + title + "%"));
                 }
                 if(type != null) {
-                    list.add(criteriaBuilder.equal(root.get("type").as(String.class),type));
+                    list.add(criteriaBuilder.equal(root.get("classifyWs").get("id").as(String.class),type));
                 }
                 return criteriaBuilder.and(list.toArray(new Predicate[list.size()]));
             }
@@ -54,9 +54,13 @@ public class InformationWsServiceImpl implements InformationWsService{
         }
     }
 
+    @Override
+    public Integer count(Long classifyId) {
+        return dao.count(classifyId);
+    }
+
     public void publishInformation(Long id) {
         InformationWs info = dao.findOne(id);
-        info.setStatus(1);
         dao.save(info);
     }
 

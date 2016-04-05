@@ -44,28 +44,28 @@
                     <!-- /.panel-heading -->
                     <div class="panel-body">
                         <form id="productForm" method="post" enctype="multipart/form-data" action="admin/infows/save" class="form-horizontal" role="form">
+                            <input type="hidden" id="id" name="id" value="${ws.id}">
                             <div class="form-group">
                                 <label  class="col-sm-2 control-label">资讯名称:</label>
                                 <div class="col-sm-3">
                                     <input type="text" class="form-control" id="title" name="title" maxlength="20"
-                                           data-rule="required" value="" placeholder="请输入资讯名称">
+                                           data-rule="required" value="${ws.title}" placeholder="请输入资讯名称">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">资讯类型：</label>
+                                <label  class="col-sm-2 control-label">资讯分类:</label>
                                 <div class="col-sm-3">
-                                    <select class="form-control" id="type" name="type">
-                                        <option value="" selected="selected">全部</option>
-                                        <option value="0">行业动态</option>
-                                        <option value="1">热点新闻</option>
-                                        <option value="2">今日话题</option>
+                                    <select class="form-control input-sm" id="type" name="type">
+                                        <c:forEach items="${typeList}" var="type">
+                                            <option value="${type.id}" <c:if test="${type.id eq ws.classifyWs.id}">selected</c:if>>${type.name}</option>
+                                        </c:forEach>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">简介:</label>
                                 <div class="col-sm-6">
-                                    <script id="container" name="content" type="text/plain"></script>
+                                    <script id="container" name="content" type="text/plain" >${ws.content}</script>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -120,7 +120,7 @@
             init: function () {
 
                 if($("#id").val()!=""){
-                    $(".page-header").text("编辑商品")
+                    $(".page-header").text("编辑咨讯")
                 }
                 $("#submitProduct").click(function(){
                     product.fn.save();
@@ -251,6 +251,9 @@
                 if($(".glyphicon-hand-down").length==0){ // 没有图片的情况
                     $("#productForm").ajaxSubmit({
                         dataType: "json",
+                        data : {
+                          "type2" : $("#type").val()
+                        },
                         success: function (result) {
                             product.fn.responseComplete(result,true);
                         }

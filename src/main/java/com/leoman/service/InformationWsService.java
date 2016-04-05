@@ -9,8 +9,10 @@ import org.springframework.data.domain.Page;
  */
 public interface InformationWsService extends ICommonService<InformationWs>{
 
-    public Page<InformationWs> findPage(String title,Integer type,Integer status,int pagenum,int pagesize);
+    public Page<InformationWs> findPage(String title,Integer type,int pagenum,int pagesize);
 
     public void publish(Long[] ids);
+
+    public Integer count(Long classifyId);
 
 }

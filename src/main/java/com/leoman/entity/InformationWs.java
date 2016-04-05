@@ -1,8 +1,6 @@
 package com.leoman.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by Administrator on 2016/3/21.
@@ -17,26 +15,17 @@ public class InformationWs extends BaseEntity{
     @Column(name = "content")
     private String content;
 
-    @Column(name = "status")
-    private Integer status ;
 
-    @Column(name = "type")
-    private Integer type;
+    @ManyToOne
+    @JoinColumn(name = "type")
+    private ClassifyWs classifyWs;
 
-    public Integer getStatus() {
-        return status;
+    public ClassifyWs getClassifyWs() {
+        return classifyWs;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
+    public void setClassifyWs(ClassifyWs classifyWs) {
+        this.classifyWs = classifyWs;
     }
 
     public String getTitle() {

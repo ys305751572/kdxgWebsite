@@ -1,13 +1,10 @@
 package com.leoman.service.impl;
 
-import com.leoman.core.Constant;
-import com.leoman.dao.InfomationDao;
 import com.leoman.dao.ProductDao;
 import com.leoman.entity.*;
 import com.leoman.service.ProductImageService;
 import com.leoman.service.ProductService;
 import com.leoman.service.PsService;
-import com.leoman.utils.ClassUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,7 +22,6 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Administrator on 2016/3/10.

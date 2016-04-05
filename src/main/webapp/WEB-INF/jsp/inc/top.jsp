@@ -6,7 +6,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="dashboard">品酒网后台管理系统</a>
+    <a class="navbar-brand" href="/kdxgWebsite/admin/dashboard">踢踢同城官网后台管理系统</a>
 </div>
 <!-- /.navbar-header -->
 
@@ -18,10 +18,10 @@
         <ul class="dropdown-menu dropdown-user">
             <%--<li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
             </li>--%>
-            <li><a href="javascript:void(0)" id="mediator"><i class="fa fa-gear fa-fw"></i> 修改密码</a>
-            </li>
+            <%--<li><a href="javascript:void(0)" id="mediator"><i class="fa fa-gear fa-fw"></i> 修改密码</a>--%>
+            <%--</li>--%>
             <%--<li class="divider"></li>--%>
-            <li><a href="logout"><i class="fa fa-sign-out fa-fw"></i> 退出</a>
+            <li><a href="/kdxgWebsite/admin/login"><i class="fa fa-sign-out fa-fw"></i> 退出</a>
             </li>
         </ul>
         <!-- /.dropdown-user -->

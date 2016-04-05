@@ -1,10 +1,8 @@
 package com.leoman.service.impl;
 
-import com.leoman.dao.KUserDao;
 import com.leoman.dao.OrderDao;
-import com.leoman.entity.KUser;
+import com.leoman.entity.Activity;
 import com.leoman.entity.Order;
-import com.leoman.service.KUserService;
 import com.leoman.service.OrderService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +17,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 /**

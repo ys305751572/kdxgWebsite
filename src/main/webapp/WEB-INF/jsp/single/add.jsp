@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: wangbin
-  Date: 2015/3/3
-  Time: 9:33
+  Date: 2015/8/17
+  Time: 15:37
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -13,7 +13,7 @@
     <%@ include file="../inc/meta.jsp" %>
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>资讯添加</title>
+    <title>班级单页</title>
     <%@ include file="../inc/css.jsp" %>
     <link href="static/js/plugins/bootstrap-fileinput/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
     <script src="static/js/plugins/bootstrap-fileinput/js/fileinput.js" type="text/javascript"></script>
@@ -26,7 +26,6 @@
     .fileinput-upload-button {display: none;}
 </style>
 <body>
-
 <div id="posts" class="wrapper">
 
     <%@ include file="../inc/nav.jsp" %>
@@ -34,7 +33,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">查看资讯</h1>
+                <h1 class="page-header">编辑单页</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -43,42 +42,48 @@
                 <div class="panel panel-default">
                     <!-- /.panel-heading -->
                     <div class="panel-body">
-                        <form id="productForm" method="post" enctype="multipart/form-data" action="admin/infows/save" class="form-horizontal" role="form">
+
+                        <form id="productForm" method="post" enctype="multipart/form-data" action="admin/single/save" class="form-horizontal" role="form">
+                            <input type="hidden" id="id" name="id" value = "${single.id}">
                             <div class="form-group">
-                                <label  class="col-sm-2 control-label">资讯名称:</label>
-                                <div class="col-sm-3">
+                                <label  class="col-sm-2 control-label">单页名称:</label>
+                                <div class="col-sm-5">
                                     <h4>
-                                        ${ws.title}
+                                        <c:if test="${single.type==1}" >
+                                            <h4>关于我们</h4>
+                                        </c:if>
+                                        <c:if test="${single.type==2}">
+                                            <h4>公司发展</h4>
+                                        </c:if>
+                                        <c:if test="${single.type==3}">
+                                            <h4>加入我们</h4>
+                                        </c:if>
+                                        <c:if test="${single.type==4}">
+                                            <h4>联系我们</h4>
+                                        </c:if>
                                     </h4>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label  class="col-sm-2 control-label">资讯分类:</label>
-                                <div class="col-sm-3">
-                                    <h4>
-                                       ${ws.classifyWs.name}
-                                    </h4>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">咨询详情:</label>
+                                <label class="col-sm-2 control-label">单页详情:</label>
                                 <div class="col-sm-6">
-                                    <script id="container" name="content" type="text/plain">${ws.content}</script>
+                                    <script id="container" name="content" type="text/plain">${single.content}</script>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="button" id="submitProduct" class="btn btn-primary">提交</button>
                                 </div>
                             </div>
                         </form>
-
                     </div>
                     <!-- /.panel-body -->
-
                 </div>
                 <!-- /.panel -->
             </div>
         </div>
-
     </div>
     <!-- /#page-wrapper -->
-
 </div>
 <!-- /#wrapper -->
 
@@ -87,8 +92,8 @@
 <script type="text/javascript" src="ueditor1_4_3/ueditor.config.js"></script>
 <!-- 编辑器源码文件 -->
 <script type="text/javascript" src="ueditor1_4_3/ueditor.all.js"></script>
-</body>
 
+</body>
 <script type="text/javascript">
     var product = {
         v: {
@@ -100,13 +105,12 @@
             init: function () {
 
                 if($("#id").val()!=""){
-                    $(".page-header").text("编辑商品")
+                    $(".page-header").text("编辑平台")
                 }
                 $("#submitProduct").click(function(){
                     product.fn.save();
                 })
                 product.fn.imageInit();
-                product.fn.dropperInit();
                 $("#removeImg").click(function(){
                     product.fn.clearImageView();
                 })
@@ -128,16 +132,16 @@
                     $(".image_show").html("<img src='" + image.path + "' class='img-responsive' >");
                 }
             },
-            dropperInit: function () {
-                $(".dropped").dropper({
-                    postKey: "file",
-                    action: "common/file/save/image",
-                    postData: {thumbSizes: '480x800'},
-                    label: "把图片拖拽到此处 ",
-                    maxSize: 204857
-                }).on("fileComplete.dropper", product.fn.onFileComplete)
-                        .on("fileError.dropper", product.fn.onFileError);
-            },
+//            dropperInit: function () {
+//                $(".dropped").dropper({
+//                    postKey: "file",
+//                    action: "common/file/save/image",
+//                    postData: {thumbSizes: '480x800'},
+//                    label: "把图片拖拽到此处 ",
+//                    maxSize: 204857
+//                }).on("fileComplete.dropper", product.fn.onFileComplete)
+//                        .on("fileError.dropper", product.fn.onFileError);
+//            },
             onFileComplete: function (e, file, response) {
                 if (response.status == '0') {
                     product.fn.viewImage(response.data);
@@ -217,6 +221,8 @@
                 });
             },
             save: function () {
+
+                console.log($("#datetest").val());
                 if(!$('#productForm').isValid()) {
                     return false;
                 };
@@ -242,7 +248,7 @@
                 if (result.status == "0") {
                     $bluemobi.notify(result.msg, "success");
 //                    $("#id").val(result.data.id)
-                    window.location.href = " ${contextPath}/admin/info/index";
+                    window.location.href = " ${contextPath}/admin/single/index";
                 } else {
                     $bluemobi.notify(result.msg, "error");
                 }

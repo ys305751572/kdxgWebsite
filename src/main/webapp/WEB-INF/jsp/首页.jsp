@@ -13,7 +13,7 @@
     <%@ include file="inc/meta.jsp" %>
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>控制面板</title>
+    <title>首页</title>
     <%@ include file="inc/css.jsp" %>
 
 </head>
@@ -27,11 +27,14 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">控制面板</h1>
+                <h1 class="page-header">首页</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
 
+        <div>
+            <h2 class="page content" style="text-align: center">欢迎进入踢踢同城官网后台管理系统！</h2>
+        </div>
         <div class="row">
             <!-- 加载编辑器的容器 -->
             <script id="container" name="content" type="text/plain">这里写你的初始化内容</script>

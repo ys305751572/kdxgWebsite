@@ -1,6 +1,7 @@
 package com.leoman.service.impl;
 
 import com.leoman.dao.InfomationDao;
+import com.leoman.entity.Activity;
 import com.leoman.entity.Information;
 import com.leoman.service.InfomationService;
 import org.springframework.beans.factory.annotation.Autowired;

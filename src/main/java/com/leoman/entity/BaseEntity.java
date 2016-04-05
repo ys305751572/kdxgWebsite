@@ -37,6 +37,7 @@ public abstract class BaseEntity implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
     public Long getCreateDate() {
         return createDate;
     }
@@ -45,11 +46,12 @@ public abstract class BaseEntity implements Serializable {
         this.createDate = createDate;
     }
 
+    public Long getUpdateDate() {
+        return updateDate;
+    }
+
     public void setUpdateDate(Long updateDate) {
         this.updateDate = updateDate;
     }
 
-    public Long getUpdateDate() {
-        return updateDate;
-    }
 }

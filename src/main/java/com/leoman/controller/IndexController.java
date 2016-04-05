@@ -82,7 +82,7 @@ public class IndexController extends CommonController {
                             HttpServletResponse response,
                             ModelMap model) {
 
-        return "控制面板";
+        return "首页";
     }
 
 

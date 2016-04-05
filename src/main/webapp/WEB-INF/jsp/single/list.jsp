@@ -13,7 +13,7 @@
     <%@ include file="../inc/meta.jsp" %>
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>资讯列表</title>
+    <title>单页列表</title>
     <%@ include file="../inc/css.jsp" %>
 </head>
 
@@ -25,7 +25,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">资讯列表</h1>
+                <h1 class="page-header">单页列表</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -33,26 +33,26 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <a href="admin/infows/add" class="btn btn-outline btn-primary btn-lg" role="button">添加资讯</a>
-                    </div>
-                    <form class="navbar-form navbar-right" role="search">
-                        <div class="form-group">
-                            <label>资讯名称：</label>
-                            <input type="text" class="form-control" value="" id="title" name="title" maxlength="20"
-                                   placeholder="请输入资讯名称">
-                        </div>
-                        <div class="form-group">
-                            <label>资讯分类：</label>
-                            <select class="form-control input-sm" id="type">
-                                <option value="" selected="selected">全部</option>
-                                <c:forEach items="${typeList}" var="type">
-                                    <option value="${type.id}">${type.name}</option>
-                                </c:forEach>
-                            </select>
-                        </div>
-                        <button type="button" id="c_search" class="btn btn-info btn-sm">查询</button>
-                    </form>
+                    <%--<div class="panel-heading">--%>
+                        <%--<a href="admin/infows/add" class="btn btn-outline btn-primary btn-lg" role="button">添加资讯</a>--%>
+                    <%--</div>--%>
+                    <%--<form class="navbar-form navbar-right" role="search">--%>
+                        <%--<div class="form-group">--%>
+                            <%--<label>资讯名称：</label>--%>
+                            <%--<input type="text" class="form-control" value="" id="title" name="title" maxlength="20"--%>
+                                   <%--placeholder="请输入资讯名称">--%>
+                        <%--</div>--%>
+                        <%--<div class="form-group">--%>
+                            <%--<label>资讯分类：</label>--%>
+                            <%--<select class="form-control input-sm" id="type">--%>
+                                <%--<option value="" selected="selected">全部</option>--%>
+                                <%--<option value="0">行业动态</option>--%>
+                                <%--<option value="1">热点新闻</option>--%>
+                                <%--<option value="2">今日话题</option>--%>
+                            <%--</select>--%>
+                        <%--</div>--%>
+                        <%--<button type="button" id="c_search" class="btn btn-info btn-sm">查询</button>--%>
+                    <%--</form>--%>
 
 
                     <!-- /.panel-heading -->
@@ -66,15 +66,13 @@
                                     <col class="gradeA odd"/>
                                     <col class="gradeA even"/>
                                     <col class="gradeA odd"/>
-                                    <col class="gradeA even"/>
                                 </colgroup>
                                 <thead>
                                 <tr>
                                     <th><input type="checkbox" onclick="$bluemobi.checkAll(this)" class="checkall"/>
                                     </th>
                                     <th>资讯名称</th>
-                                    <th>添加时间</th>
-                                    <th>分类</th>
+                                    <th>更新时间</th>
                                     <th>操作</th>
                                 </tr>
                                 </thead>
@@ -160,21 +158,31 @@
                     "searching": false,
                     "ordering": false,
                     "ajax": {
-                        "url": "admin/infows/list",
+                        "url": "admin/single/list",
                         "type": "POST"
                     },
                     "columns": [
                         {"data": "id"},
-                        {"data": "title"},
-                        {
-                            "data": "createDate", render: function (data) {
-                            return new Date(data).format("yyyy-MM-dd hh:mm:ss")
+
+                        {"data": "type",
+                            render : function(data ) {
+                                if(data == 1){
+                                    return "关于我们";
+                                }
+                                if(data == 2) {
+                                    return "公司发展";
+                                }
+                                if(data == 3) {
+                                    return "加入我们";
+                                }else if(data == 4) {
+                                    return "联系我们";
+                                }
                             }
                         },
                         {
-                            "data": "classifyWs", render: function (data) {
-                               return data.name;
-                            }
+                            "data": "createDate", render: function (data) {
+                            return new Date(data).format("yyyy-MM-dd hh:mm:ss")
+                        }
                         },
                         {"data": ""}
                     ],
@@ -182,7 +190,8 @@
                         {
 
                             "data": null,
-                            "defaultContent": "<a  title='查看'  class='btn btn-primary btn-circle add'>" +
+                            "defaultContent":
+                            "<a  title='查看'  class='btn btn-primary btn-circle add'>" +
                             "<i class='fa fa-eye'></i>" +
                             "</a>"
                             +
@@ -190,12 +199,6 @@
                             +
                             "<a  title='编辑' class='btn btn-primary btn-circle edit'>" +
                             "<i class='fa fa-edit'></i>" +
-                            "</a>"
-                            +
-                            "&nbsp;&nbsp;"
-                            +
-                            "<a  title='删除' class='btn btn-primary btn-circle settingAdded'>" +
-                            "<i class='fa fa-trash'></i>" +
                             "</a>",
                             "targets": -1
                         }
@@ -215,8 +218,8 @@
                     },
                     rowCallback: function (row, data) {
                         var items = kuserList.v.list;
-                        $('td', row).last().find(".add").attr("href", 'admin/infows/detail?id=' + data.id);
-                        $('td', row).last().find(".edit").attr("href", 'admin/infows/add?id=' + data.id);
+                        $('td', row).last().find(".add").attr("href", 'admin/single/detail?id=' + data.id);
+                        $('td', row).last().find(".edit").attr("href", 'admin/single/add?id=' + data.id);
 
 //                        if (data.username == 'admin') {
 //                            $('td', row).last().find(".settingAdded").css('display', 'none');
@@ -238,7 +241,7 @@
             },
             settingAdded: function (data) {
                 $bluemobi.optNotify(function () {
-                    $bluemobi.ajax("admin/infows/delete", {id: JSON.stringify(data.id)}, function (result) {
+                    $bluemobi.ajax("admin/single/delete", {id: JSON.stringify(data.id)}, function (result) {
                         kuserList.fn.responseComplete(result);
                     })
                 }, "你确定要删除吗？", "确定");

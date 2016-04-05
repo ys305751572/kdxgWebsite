@@ -1,5 +1,6 @@
 package com.leoman.service.common;
 
+import com.leoman.entity.Activity;
 import org.springframework.data.domain.Page;
 
 import java.util.List;

@@ -1,6 +1,7 @@
 package com.leoman.service.impl;
 
 import com.leoman.dao.MessageDao;
+import com.leoman.entity.Activity;
 import com.leoman.entity.Message;
 import com.leoman.service.MessageService;
 import com.leoman.utils.MessageTimerWork;
