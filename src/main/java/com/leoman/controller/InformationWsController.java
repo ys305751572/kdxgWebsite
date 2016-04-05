@@ -73,7 +73,7 @@ public class InformationWsController extends CommonController{
         if(id != null) {
             try {
                 InformationWs ws = service.getById(id);
-                ws.setContent(ws.getContent().replace(">", "&gt").replace("<", "&lt"));
+                ws.setContent(ws.getContent().replace("&gt", ">").replace("&lt", "<"));
                 model.addAttribute("ws", ws);
             }catch (Exception e) {
                 e.printStackTrace();
