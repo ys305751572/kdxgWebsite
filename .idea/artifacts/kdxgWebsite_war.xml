@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="kdxgWebsite:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="kdxgWebsite.war">
+      <element id="artifact" artifact-name="kdxgWebsite:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -16,16 +16,15 @@
 <div class="wrap">
 	<div class="nav_box">
 		<ul>
+			<li><a href="#" onclick="website.fn.selectType(null)">全部</a></li>
 			<c:forEach items="${wsList}" var="classify">
 				<li><a href="#" onclick="website.fn.selectType(${classify.id})">${classify.name}</a></li>
 			</c:forEach>
 		</ul>
 	</div>
-<div class="aside" style="display: none">
-
+<div class="aside1" style="display: none">
 </div>
-<div class="section1" style="display: none">
-
+<div class="section11" style="display: none">
 </div>
 	<input type="hidden" id="type" name="type" value>
 	<input type="hidden" id="start" name="start" value>
@@ -48,21 +47,33 @@
 			},
 
 			selectType : function(type) {
-				$.post("${contextPath}/ws/infows/list",{"type" : type, "start" : $("#start").val(), "length" : $("#length").val()} ,function(result) {
-					$(".section1").last().after(result.html);
 
-					$("#start").val(result.start);
-					$("#length").val(result.length);
-					$("#type").val(type);
+				var start = $("#start").val();
+				var length = $("#length").val();
+				if(type != $("#type").val()) {
+					start = 1;
+					length = 10;
+				}
 
-					if(result.isEnd) {
+				$.post("${contextPath}/ws/infows/list",{"type" : type, "start" : start, "length" : length} ,function(result) {
+						if(type != $("#type").val()) {
+							$("div").remove(".section1");
+							$("div").remove(".aside");
+						}
+
+						$(".section11").last().after(result.html);
+						$("#start").val(result.start);
+						$("#length").val(result.length);
+						$("#type").val(type);
+
+						if(result.isEnd) {
 						$(".btn").css("display","none");
 					}
 				});
 			},
 
 			detail : function(id) {
-				window.location.href = "${contextPath}/ws/infows/detail?id = " + id;
+				window.location.href = "${contextPath}/ws/infows/detail?id=" + id;
 			}
 		}
 	}

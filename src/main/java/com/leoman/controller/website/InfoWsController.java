@@ -7,6 +7,7 @@ import com.leoman.entity.ClassifyWs;
 import com.leoman.entity.InformationWs;
 import com.leoman.service.ClassifyWsService;
 import com.leoman.service.InformationWsService;
+import com.leoman.utils.DateUtils;
 import com.leoman.utils.WebUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -68,15 +70,15 @@ public class InfoWsController extends CommonController{
             String html = "";
 
             for (InformationWs info : infoList) {
-                html += " <div class=\"aside\">";
+                html += " <div class=\"aside\" style=\"height:auto\">";
                 html += "<div class=\"side_box\">";
-                html += "<span class=\"time\">2016</span><br>";
+                html += "<span class=\"time\">"+ DateUtils.longToString(info.getCreateDate(),"yyyy-MM-dd") +"</span><br><span></span>";
                 html += "</div>";
                 html += "</div>";
-                html += "<div class=\"section1\" style=\"display:block;word-break: break-all;word-wrap: break-word;\">";
+                html += "<div class=\"section1\" style=\"height:auto\">";
                 html += "<span>"+ info.getTitle() +"</span>";
-                html += info.getContent().replaceAll("&lt;","<").replaceAll("&gt;",">");
-                html += "<a href=\"#\" onclick=\"website.fn.selectType(${classify.id})\" class=\"link_all\">阅读全文</a>";
+                html += info.getContent().replaceAll("&lt","<").replaceAll("&gt",">");
+                html += "<a href=\"#\" onclick=\"website.fn.detail("+ info.getId() +")\" class=\"link_all\">阅读全文</a>";
                 html += "</div>";
             }
             result.put("html",html);
@@ -96,11 +98,14 @@ public class InfoWsController extends CommonController{
      * @param model
      * @return
      */
-    @RequestMapping(value = "/detail", method = RequestMethod.GET)
-    public String detail(Long id, Model model) {
+    @RequestMapping(value = "/detail")
+    public String detail(@RequestParam(value = "id", required = true) Long id, Model model) {
 
         InformationWs info = service.getById(id);
+        if(info.getContent() != null) {
+            info.setContent(info.getContent().replaceAll("&lt","<").replaceAll("&gt",">"));
+        }
         model.addAttribute("info",info);
-        return "website/detail";
+        return "website/info-detail";
     }
 }

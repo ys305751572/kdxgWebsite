@@ -70,7 +70,9 @@ public class SingleController extends CommonController {
         if (id != null) {
             try {
                 Single single = service.getById(id);
-                single.setContent(single.getContent().replace("&lt","<").replace("&gt",">"));
+                if(single.getContent() != null) {
+                    single.setContent(single.getContent().replace("&lt","<").replace("&gt",">"));
+                }
                 model.addAttribute("single", single);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -82,7 +84,9 @@ public class SingleController extends CommonController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public void save(HttpServletResponse response,Single single) {
         try{
-            service.create(single);
+            Single _s = service.getById(single.getId());
+            _s.setContent(single.getContent());
+            service.create(_s);
             WebUtil.print(response, new Result(true).msg("操作成功!"));
         } catch (Exception e) {
             e.printStackTrace();
@@ -100,12 +104,10 @@ public class SingleController extends CommonController {
     public String detail(Long id,Model model) {
 
         Single single = service.getById(id);
-//        if(admin.getContent() != null) {
-//            admin.setContent(admin.getContent().replace("&lt","<").replace("&gt",">"));
-//        }
+        if(single.getContent() != null) {
+            single.setContent(single.getContent().replace("&lt","<").replace("&gt",">"));
+        }
         model.addAttribute("single",single);
-
-
         return "single/detail";
     }
 }

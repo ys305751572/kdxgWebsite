@@ -26,7 +26,7 @@ public class CustomWeixinInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String code = request.getParameter("code");
-        if(Constant.WEIXIN_STATE.equals(request.getParameter("state"))&&StringUtils.isNotBlank(code)){
+        if(StringUtils.isNotBlank(code)){
             WxMpOAuth2AccessToken wxMpOAuth2AccessToken = wxMpService.oauth2getAccessToken(code);
 //            WxUser wxUser = wxUserService.getWxUserByToken(wxMpOAuth2AccessToken);
 //            request.getSession().setAttribute(Constant.SESSION_WEIXIN_USER, wxUser);
