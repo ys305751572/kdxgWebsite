@@ -52,10 +52,10 @@
         //    'print', 'preview', 'searchreplace', 'help', 'drafts'
         //]]
         , toolbars: [[
-            'fullscreen', 'source', '|', 'undo', 'redo', '|',
+            'fullscreen', 'source', '|', 'undo', 'redo', 'fontsize', '|',
             'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
             'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
-            'simpleupload', 'insertimage'
+            'simpleupload', 'insertimage',
         ]]
         //当鼠标放在工具栏上时显示的tooltip提示,留空支持自动多语言配置，否则以配置值为准
         //,labelMap:{
