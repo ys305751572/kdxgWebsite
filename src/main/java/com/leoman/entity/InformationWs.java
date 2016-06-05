@@ -15,10 +15,30 @@ public class InformationWs extends BaseEntity{
     @Column(name = "content")
     private String content;
 
+    @Transient
+    private String year;
+    @Transient
+    private String monthday;
 
     @ManyToOne
     @JoinColumn(name = "type")
     private ClassifyWs classifyWs;
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public String getMonthday() {
+        return monthday;
+    }
+
+    public void setMonthday(String monthday) {
+        this.monthday = monthday;
+    }
 
     public ClassifyWs getClassifyWs() {
         return classifyWs;

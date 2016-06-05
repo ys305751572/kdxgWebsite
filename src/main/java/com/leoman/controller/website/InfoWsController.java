@@ -9,6 +9,7 @@ import com.leoman.service.ClassifyWsService;
 import com.leoman.service.InformationWsService;
 import com.leoman.utils.DateUtils;
 import com.leoman.utils.WebUtil;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +37,8 @@ public class InfoWsController extends CommonController{
     @Autowired
     public ClassifyWsService classifyWsService;
 
+    public static final String[] month = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+
     /**
      * 资讯首页
      * @return
@@ -43,7 +47,7 @@ public class InfoWsController extends CommonController{
     public String index(Model model) {
         List<ClassifyWs> list = classifyWsService.findAll();
         model.addAttribute("wsList",list);
-        return "website/infows-list";
+        return "website2/info";
     }
 
     /**
@@ -67,21 +71,30 @@ public class InfoWsController extends CommonController{
             Map<String, Object> result = DataTableFactory.fitting(draw, page);
 
             List<InformationWs> infoList = page.getContent();
-            String html = "";
-
+//            String html = "";
+//
             for (InformationWs info : infoList) {
-                html += " <div class=\"aside\" style=\"height:auto\">";
-                html += "<div class=\"side_box\">";
-                html += "<span class=\"time\">"+ DateUtils.longToString(info.getCreateDate(),"yyyy-MM-dd") +"</span><br><span></span>";
-                html += "</div>";
-                html += "</div>";
-                html += "<div class=\"section1\" style=\"height:auto\">";
-                html += "<span>"+ info.getTitle() +"</span>";
-                html += info.getContent().replaceAll("&lt","<").replaceAll("&gt",">");
-                html += "<a href=\"#\" onclick=\"website.fn.detail("+ info.getId() +")\" class=\"link_all\">阅读全文</a>";
-                html += "</div>";
+//                html += " <div class=\"aside\" style=\"height:auto\">";
+//                html += "<div class=\"side_box\">";
+//                html += "<span class=\"time\">"+ DateUtils.longToString(info.getCreateDate(),"yyyy-MM-dd") +"</span><br><span></span>";
+//                html += "</div>";
+//                html += "</div>";
+//                html += "<div class=\"section1\" style=\"height:auto\">";
+//                html += "<span>"+ info.getTitle() +"</span>";
+//                html += info.getContent().replaceAll("&lt","<").replaceAll("&gt",">");
+//                html += "<a href=\"#\" onclick=\"website.fn.detail("+ info.getId() +")\" class=\"link_all\">阅读全文</a>";
+//                html += "</div>";
+                info.setContent(StringUtils.isNotBlank(info.getContent()) ? info.getContent().replaceAll("&lt","<").replaceAll("&gt",">") : "");
+                Long createDate = info.getCreateDate();
+                Date date = new Date(createDate);
+                Integer year = DateUtils.getYear(date);
+                Integer month = DateUtils.getMonth(date);
+                Integer days = DateUtils.getDays(date);
+                info.setYear("" + year);
+                info.setMonthday("" + this.month[month-1] + "." +days);
             }
-            result.put("html",html);
+            result.put("list",infoList);
+//            result.put("html",html);
             result.put("start",++start);
             result.put("lenght",length);
             result.put("isEnd",!page.hasNextPage());
@@ -103,9 +116,17 @@ public class InfoWsController extends CommonController{
 
         InformationWs info = service.getById(id);
         if(info.getContent() != null) {
-            info.setContent(info.getContent().replaceAll("&lt","<").replaceAll("&gt",">"));
+            info.setContent(StringUtils.isNotBlank(info.getContent()) ? info.getContent().replaceAll("&lt","<").replaceAll("&gt",">") : "");
+
         }
+        Long createDate = info.getCreateDate();
+        Date date = new Date(createDate);
+        Integer year = DateUtils.getYear(date);
+        Integer month = DateUtils.getMonth(date);
+        Integer days = DateUtils.getDays(date);
+        info.setYear("" + year);
+        info.setMonthday("" + this.month[month-1] + "." +days);
         model.addAttribute("info",info);
-        return "website/info-detail";
+        return "website2/info-detail";
     }
 }
