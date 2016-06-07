@@ -20,9 +20,20 @@ public class InformationWs extends BaseEntity{
     @Transient
     private String monthday;
 
+    @Transient
+    private String firstImageUrl;
+
     @ManyToOne
     @JoinColumn(name = "type")
     private ClassifyWs classifyWs;
+
+    public String getFirstImageUrl() {
+        return firstImageUrl;
+    }
+
+    public void setFirstImageUrl(String firstImageUrl) {
+        this.firstImageUrl = firstImageUrl;
+    }
 
     public String getYear() {
         return year;

@@ -18,41 +18,38 @@
 <%@ include file = "top.jsp"%>
 <!--中间内容区域-->
 <div class="main">
-  <div class="content bigbg">
+    <div class="content bigbg">
+        <div class="container">
+            <!--公众号二维码-->
+            <div class="item-1 tc">
+                <h3 class="title-1"><img src="${contextPath}/static/website2/images/title-1.png"/></h3>
+                <div class="iphone rel">
+                    <img src="${contextPath}/static/website2/images/phone.png"/>
+                    <div class="code" style="background: url(${contextPath}/static/website/images/erwei.jpg);background-size:200px;width:200px;"></div>
+                </div>
+            </div>
+            <!--下载二维码-->
+            <div class="item-2 tc">
+                <h3 class="title-2"><img src="${contextPath}/static/website2/images/title-2.png"/></h3>
+                <img class="cityImg" src="${contextPath}/static/website2/images/serve.png"/>
+                <div class="download">
+                    <ul class="clearfix">
+                        <li><span style="background: url(${contextPath}/static/website/images/erwei.jpg);background-size:190px;width:200px;"></span><p>iOS下载</p></li>
+                        <li><span style="background: url(${contextPath}/static/website/images/erwei.jpg);background-size:190px;width:200px;"></span ><p>安卓下载</p></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--水果套餐订购-->
     <div class="container">
-      <!--公众号二维码-->
-      <div class="item-1 tc">
-          <h3 class="b-title">有需要<i>·</i>找踢踢</h3>
-          <p class="prompt">扫描二维码关注公众号</p>
-          <div class="iphone rel">
-            <img src="${contextPath}/static/website2/images/phone.png"/>
-            <div class="code" style="background: url(${contextPath}/static/website/images/erwei.jpg);background-size:200px;width:200px;"></div>
-          </div>
-       </div>
-       <!--下载二维码-->
-       <div class="item-2 tc">
-          <h3 class="h-title">同城服务</h3>
-          <p class="p-title">总有人在你身边  帮你递送温暖</p>
-          <img class="cityImg" src="${contextPath}/static/website2/images/serve.png"/>
-          <div class="download">
-            <ul class="clearfix">
-              <li><span  style="background: url(${contextPath}/static/website/images/erwei.jpg);background-size:190px;width:200px;"></span><p>iOS下载</p></li>
-              <li><span  style="background: url(${contextPath}/static/website/images/erwei.jpg);background-size:190px;width:200px;"></span><p>安卓下载</p></li>
-            </ul>
-          </div>
-       </div>
+        <div class="item-3 tc">
+            <h3 class="title-3"><img src="${contextPath}/static/website2/images/title-3.png"/></h3>
+            <img src="${contextPath}/static/website2/images/meal.png"/>
+            <div class="code-2"  style="background: url(${contextPath}/static/website/images/erwei.jpg);background-size:190px;width:200px;"></div>
+            <p class="prompt"><img src="${contextPath}/static/website2/images/title-4.png"/></p>
+        </div>
     </div>
-  </div>
-  <!--水果套餐订购-->
-  <div class="container">
-    <div class="item-3 tc">
-      <h3 class="h-title">水果套餐订购</h3>
-      <p class="p-title">水果套餐定时配送  美好的一天从这里开始</p>
-      <img src="${contextPath}/static/website2/images/meal.png"/>
-      <div class="code-2"  style="background: url(${contextPath}/static/website/images/erwei.jpg);background-size:190px;width:200px;"></div>
-      <p class="prompt">扫描二维码关注公众号</p>
-    </div>
-  </div>
 </div>
 <!--文件底部-->
 <%@ include file = "footer.jsp"%>

@@ -6,16 +6,9 @@
    background:cover;
    width:100%;
 }
-.item-1 h3.b-title{
-	font-size:48px;
-	color:#f29838;
-	font-weight:normal;
+.title-1{
+	text-align:center;
 	padding-top:90px;
-}
-.b-title i{
-	font-style:normal;
-	display:inline-block;
-	padding:0 10px;
 }
 .item-1 .prompt{
 	font-size:16px;
@@ -23,7 +16,7 @@
 	color:#878787;
 }
 .iphone{
-	margin-top:180px;
+	margin-top:170px;
 	text-align:center;
 }
 .code{
@@ -32,7 +25,7 @@
 	height:190px;
 	background:#fff;
 	position:absolute;
-	top:-160px;
+	top:-150px;
 	left:50%;
 	margin-left:-100px;
 }
@@ -47,7 +40,7 @@
 	padding-top:10px;
 }
 .item-2 img.cityImg{
-	margin-top:130px;
+	margin-top:150px;
 }
 .item-2 .download{
 	padding:80px 0;
@@ -72,16 +65,13 @@
 .item-3{
 	padding-bottom:140px;
 }
-.item-3 h3.h-title{
-	font-size:42px;
-	color:#878787;
-	font-weight:normal;
-	padding-top:100px;
+.title-2{
+	text-align:center;
+	padding-top:150px;
 }
-.item-3 p.p-title{
-	font-size:30px;
-	color:#878787;
-	padding-top:10px;
+.title-3{
+	text-align:center;
+	padding-top:110px;
 }
 .code-2{
 	border:5px solid #888888;

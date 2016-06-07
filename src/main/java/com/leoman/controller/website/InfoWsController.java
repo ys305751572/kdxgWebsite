@@ -8,8 +8,10 @@ import com.leoman.entity.InformationWs;
 import com.leoman.service.ClassifyWsService;
 import com.leoman.service.InformationWsService;
 import com.leoman.utils.DateUtils;
+import com.leoman.utils.JsoupUtil;
 import com.leoman.utils.WebUtil;
 import org.apache.commons.lang.StringUtils;
+import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -84,7 +86,11 @@ public class InfoWsController extends CommonController{
 //                html += info.getContent().replaceAll("&lt","<").replaceAll("&gt",">");
 //                html += "<a href=\"#\" onclick=\"website.fn.detail("+ info.getId() +")\" class=\"link_all\">阅读全文</a>";
 //                html += "</div>";
-                info.setContent(StringUtils.isNotBlank(info.getContent()) ? info.getContent().replaceAll("&lt","<").replaceAll("&gt",">") : "");
+//                info.setContent(StringUtils.isNotBlank(info.getContent()) ? info.getContent().replaceAll("&lt","<").replaceAll("&gt",">") : "");
+                String content = StringUtils.isNotBlank(info.getContent()) ? info.getContent() : "";
+                info.setFirstImageUrl(JsoupUtil.getImg(content));
+                info.setContent(JsoupUtil.filterHtml(content));
+
                 Long createDate = info.getCreateDate();
                 Date date = new Date(createDate);
                 Integer year = DateUtils.getYear(date);

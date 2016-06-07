@@ -25,9 +25,9 @@
   <div class="container">
       <div class="message">
         <ul class="clearfix">
-          <li class="active"><a href="javascript:void(0)" onclick="website.fn.selectType(null,this)">全部</a></li>
+          <li class="active">全部</li>
             <c:forEach items="${wsList}" var="classify">
-                <li><a href="javascript:void(0)" onclick="website.fn.selectType(${classify.id},this)">${classify.name}</a></li>
+                <li id="${classify.id}">${classify.name}</li>
             </c:forEach>
         </ul>
       </div>
@@ -75,7 +75,16 @@
                 });
                 website.fn.selectType(null,null);
 
-
+                $(".clearfix li").each(function() {
+                    $(this).click(function() {
+                        if($(this).attr("id") == null) {
+                            website.fn.selectType(null,this)
+                        }
+                        else {
+                            website.fn.selectType($(this).attr("id"),this)
+                        }
+                    });
+                });
             },
 
             selectType : function(type,classfy) {
@@ -93,8 +102,7 @@
                         $(".clearfix li").each(function() {
                             $(this).removeClass("active");
                         }) ;
-
-                        $(classfy).parent().addClass("active");
+                        $(classfy).addClass("active");
                     }
 
                     if(type != $("#type").val()) {
@@ -110,8 +118,10 @@
                         html += "</div>";
                         html += "<div class=\"rt-details\">";
                         html += "<h3 class=\"ellips\">" + info.title + "</h3>";
-                        html += "<div style=\"max-height: 400px;overflow:hidden\">" + info.content +"</div>";
-                        html += "</br>"
+                        html += "<p class=\"intro range\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + info.content +"</p>";
+                        if(info.firstImageUrl != null) {
+                            html += "<div class=\"introimg\"><img src=\"" + info.firstImageUrl + "\"/></div>";
+                        }
                         html += "<p><a class=\"read\" href=\"javascript:void(0)\" onclick='website.fn.detail("+ info.id +")'>阅读全文</a></p>";
                         html += "</div>";
                         html += "</li>";
@@ -126,21 +136,23 @@
                     }
                     //限制字符个数
                     $(".range").each(function(){
-//                        var maxwidth=200;
-//
-//                        if($(this).text().length>maxwidth){
-//                            $(this).text($(this).text().substring(0,maxwidth));
-//                            $(this).html($(this).html()+"…");
-//                        }
-                        $(this).attr("max-heigth","300px");
+                        var maxwidth=200;
+                        if($(this).text().length>maxwidth){
+                            $(this).text($(this).text().substring(0,maxwidth));
+                            $(this).html($(this).html()+"…");
+                        }
+//                        $(this).attr("max-heigth","300px");
                     });
 
                     $("#start").val(result.start);
                     $("#length").val(result.length);
                     $("#type").val(type);
-
+                    console.log("isEnd:" + result.isEnd);
                     if(result.isEnd) {
                         $(".btn").css("display","none");
+                    }
+                    else {
+                        $(".btn").css("display","block");
                     }
                 });
             },
